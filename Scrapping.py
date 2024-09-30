@@ -44,7 +44,7 @@ for job_element in python_job_elements:
         print(f"Apply here: {link_url}\n")
 
 
-print(python_jobs)
+# print(python_jobs)
 
 #récap du nombre de jobs
 
