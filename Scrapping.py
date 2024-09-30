@@ -1,25 +1,33 @@
 import requests
 from bs4 import BeautifulSoup
 
+# Recherche de l'url
+
 URL = "https://realpython.github.io/fake-jobs/"
 page = requests.get(URL)
 
+#Affichage complet
 print(page.text)
 
 soup = BeautifulSoup(page.content, "html.parser")
 results = soup.find(id="ResultsContainer")
+
+# Affichage après parsing et indentation
 print(results.prettify())
 
+#résolution de la casse
 python_jobs = results.find_all(
     "h2", string=lambda text: "python" in text.lower()
 )
 
+#recherche dans les balises parents et grands parents
 python_job_elements = [
     h2_element.parent.parent.parent for h2_element in python_jobs
 ]
 
 job_elements = results.find_all("div", class_="card-content")
 
+#boucle d'affichage des jobs
 for job_element in python_job_elements:
     title_element = job_element.find("h2", class_="title")
     company_element = job_element.find("h3", class_="company")
@@ -29,6 +37,8 @@ for job_element in python_job_elements:
     print(location_element.text.strip())
     print()
     links = job_element.find_all("a")
+
+    # Affichage des links pour apply
     for link in links:
         link_url = link["href"]
         print(f"Apply here: {link_url}\n")
@@ -36,6 +46,7 @@ for job_element in python_job_elements:
 
 print(python_jobs)
 
+#récap du nombre de jobs
 texte1="Il y a "
 nb_job=len(python_jobs)
 texte2=" jobs en Python"
