@@ -7,13 +7,13 @@ URL = "https://realpython.github.io/fake-jobs/"
 page = requests.get(URL)
 
 #Affichage complet
-print(page.text)
+# print(page.text)
 
 soup = BeautifulSoup(page.content, "html.parser")
 results = soup.find(id="ResultsContainer")
 
 # Affichage après parsing et indentation
-print(results.prettify())
+# print(results.prettify())
 
 #résolution de la casse
 python_jobs = results.find_all(
@@ -47,8 +47,11 @@ for job_element in python_job_elements:
 print(python_jobs)
 
 #récap du nombre de jobs
+
 texte1="Il y a "
 nb_job=len(python_jobs)
 texte2=" jobs en Python"
 rep=texte1+str(nb_job)+texte2
+
+
 print(rep)
