@@ -29,4 +29,4 @@ tzdata==2024.2
 urllib3==2.2.3
 
 ![Exemple d'image](Apply.png)
-![Exemple d'image](no_job.png)
+![Exemple d'image](nb_job.png)
