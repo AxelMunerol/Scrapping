@@ -23,6 +23,7 @@ def scrape_quotes(url):
     total_quotes = len(initial_soup.find_all("div", class_="quote"))
 
     previouscount = total_quotes  # Compteur précédent
+    print(initial_soup.find("div", class_="quote").text)
 
     while True:
         # Faire défiler vers le bas en utilisant JavaScript
