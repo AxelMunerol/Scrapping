@@ -2,10 +2,8 @@ from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
-
 from bs4 import BeautifulSoup
 import time
-
 
 def scrape_quotes(url):
     # Configuration du WebDriver Selenium
@@ -23,7 +21,9 @@ def scrape_quotes(url):
     total_quotes = len(initial_soup.find_all("div", class_="quote"))
 
     previouscount = total_quotes  # Compteur précédent
-    print(initial_soup.find("div", class_="quote").text)
+
+    # Liste pour stocker les citations
+    quotes_list = []
 
     while True:
         # Faire défiler vers le bas en utilisant JavaScript
@@ -37,6 +37,11 @@ def scrape_quotes(url):
         scroll_soup = BeautifulSoup(scroll_html, "html.parser")
         total_quotes = len(scroll_soup.find_all("div", class_="quote"))
 
+        # Ajouter les citations à la liste
+        for quote_div in scroll_soup.find_all("div", class_="quote"):
+            quote_text = quote_div.find("span", class_="text").text.strip()
+            quotes_list.append(quote_text)
+
         # Si le nombre de citations ne change pas, sortir de la boucle
         if total_quotes == previouscount:
             break
@@ -47,6 +52,8 @@ def scrape_quotes(url):
 
     # Afficher le nombre total de citations
     print(f"Nombre total de citations : {total_quotes}")
+    print(f"Première citation : {quotes_list[0]}")
+    print(f"Cinquième citation : {quotes_list[4]}")
 
 
 if __name__ == "__main__":
